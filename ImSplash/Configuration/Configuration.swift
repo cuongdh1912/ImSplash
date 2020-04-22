@@ -14,4 +14,6 @@ struct Configuration {
     let accessKey = "Wv0RsMRZcrJpkkSZF7OgadYOCL8xIm3ueUnSlLAlgVA"
     let headers: [String: String] = ["Authorization": "Client-ID Wv0RsMRZcrJpkkSZF7OgadYOCL8xIm3ueUnSlLAlgVA"]
     let pageParameter = "page"
+    let perpageParameter = "per_page"
+    let maxItemsPerPage = "20"
 }

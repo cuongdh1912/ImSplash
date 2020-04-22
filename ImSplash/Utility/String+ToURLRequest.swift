@@ -8,6 +8,7 @@
 
 import Foundation
 extension String {
+    // convert self String to URLRequest
     func toURLRequest() -> URLRequest? {
         if let url = URL(string: self) {
             return URLRequest(url: url)
