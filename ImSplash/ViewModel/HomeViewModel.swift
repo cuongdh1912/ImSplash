@@ -13,6 +13,7 @@ class HomeViewModel {
     // run callback methods after loadPhotos func completes
     weak var networkRequestDelegate: NetworkRequestDelegate?
     // the page number needs to be loaded more
+    var needLoadMore = true
     var currentPage: Int = 1
     let networkRequest: NetworkRequest
     // list of photos getting from calling api request
@@ -31,22 +32,22 @@ class HomeViewModel {
         // query api request in other thread
         DispatchQueue.global(qos: .utility).async {[unowned self] in
             self.networkRequest.getPhotos(page: self.currentPage)
-                .subscribe({[weak self] event in
+                .subscribe({[unowned self] event in
                     switch event {
                     case .next(let list): // if success
-                        if self != nil {
-                            if let items = list {
-                                self!.photos += items
-                            } else {
-                                // no more photos
-                                // update table view in main thread (UI)
-                                DispatchQueue.main.async { [weak self] in
-                                  self?.networkRequestDelegate?.noMorePhotos()
-                                }
-                            }
+                        if let items = list { // if there are some photos
+                            self.photos += items
+                            // increase page
+                            self.currentPage += 1
                             // update table view in main thread (UI)
                             DispatchQueue.main.async { [weak self] in
                               self?.networkRequestDelegate?.loadPhotosSuccess()
+                            }
+                        } else { // no more photos
+                            self.needLoadMore = false
+                            // update table view in main thread (UI)
+                            DispatchQueue.main.async { [weak self] in
+                              self?.networkRequestDelegate?.noMorePhotos()
                             }
                         }
                     case .error(let error): // if failed
@@ -59,6 +60,39 @@ class HomeViewModel {
                     }
                 })
                 .disposed(by: self.disposeBag)
+        }
+    }
+}
+// MARK: --UICollectionView delegate
+extension HomeViewModel {
+    // get number of section
+    func numberOfSection() ->Int {
+        if photos.count > 0 {
+            return needLoadMore ? 2 : 1
+        } else { // if there is no photo
+            return 1
+        }
+    }
+    // get number of photos
+    func numberOfPhotos() -> Int {
+        return photos.count
+    }
+    // get photo at index
+    func getPhoto(index: Int) -> Photo? {
+        if index < photos.count { // if in photos's range
+            return photos[index]
+        } else { // if out of index range
+            return nil
+        }
+    }
+    // Get ratioHeightPerWidth of photos[index]
+    //
+    // -Parameter index: index of photos
+    func getPhotoRatioHeightPerWidth(index: Int) -> Float? {
+        if index < photos.count { // if in photos's range
+            return photos[index].ratioHeightPerWidth
+        } else { // if out of index range
+            return nil
         }
     }
 }

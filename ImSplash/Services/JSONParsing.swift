@@ -32,7 +32,7 @@ class JSONParsing {
                 photo.thumbUrl = urls[JSONKeys.thumbUrl]
                 photo.originUrl = urls[JSONKeys.originUrl]
                 if let width = object[JSONKeys.width] as? Float, let height = object[JSONKeys.height] as? Float {
-                    photo.ratioHeightPerWidth = width / height
+                    photo.ratioHeightPerWidth = height / width
                 }
                 photos.append(photo)
             }
