@@ -95,7 +95,8 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             // open photo view
-            if let vc = Router.getViewControllerWithId(Common.photoStoryboardId) {
+            if let vc = Router.getViewControllerWithId(Common.photoStoryboardId) as? PhotoViewController {
+                vc.photo = homeViewModel?.getPhoto(index: indexPath.row)
                 present(vc, animated: false, completion: nil)
             }
         }

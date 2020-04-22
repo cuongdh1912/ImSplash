@@ -28,7 +28,7 @@
 		4E202A44244EED4D007614DB /* JSONParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E202A43244EED4D007614DB /* JSONParsing.swift */; };
 		4E202A46244EF72D007614DB /* PhotoDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E202A45244EF72D007614DB /* PhotoDownloader.swift */; };
 		4E202A4D244F4B18007614DB /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E202A4C244F4B18007614DB /* Common.swift */; };
-		4E202A4F244F4C89007614DB /* String+ToURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E202A4E244F4C89007614DB /* String+ToURLRequest.swift */; };
+		4E202A4F244F4C89007614DB /* String+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E202A4E244F4C89007614DB /* String+Convert.swift */; };
 		4E202A51244F5BA5007614DB /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E202A50244F5BA5007614DB /* PhotoViewController.swift */; };
 		4E202A53244F5BBC007614DB /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E202A52244F5BBC007614DB /* CollectionViewController.swift */; };
 		4E202A55244F63B2007614DB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E202A54244F63B2007614DB /* HomeViewModel.swift */; };
@@ -80,7 +80,7 @@
 		4E202A43244EED4D007614DB /* JSONParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParsing.swift; sourceTree = "<group>"; };
 		4E202A45244EF72D007614DB /* PhotoDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDownloader.swift; sourceTree = "<group>"; };
 		4E202A4C244F4B18007614DB /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
-		4E202A4E244F4C89007614DB /* String+ToURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ToURLRequest.swift"; sourceTree = "<group>"; };
+		4E202A4E244F4C89007614DB /* String+Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Convert.swift"; sourceTree = "<group>"; };
 		4E202A50244F5BA5007614DB /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		4E202A52244F5BBC007614DB /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		4E202A54244F63B2007614DB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -250,7 +250,7 @@
 		4E202A47244F46B4007614DB /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				4E202A4E244F4C89007614DB /* String+ToURLRequest.swift */,
+				4E202A4E244F4C89007614DB /* String+Convert.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -421,7 +421,7 @@
 				4E202A01244ED849007614DB /* AppDelegate.swift in Sources */,
 				4E202A38244EDAD8007614DB /* Configuration.swift in Sources */,
 				4E202A03244ED84A007614DB /* SceneDelegate.swift in Sources */,
-				4E202A4F244F4C89007614DB /* String+ToURLRequest.swift in Sources */,
+				4E202A4F244F4C89007614DB /* String+Convert.swift in Sources */,
 				4EA657A22450394600BFAB71 /* ActivityDelegate.swift in Sources */,
 				4EA657A424504D1B00BFAB71 /* Router.swift in Sources */,
 				4E0DFBB7245000F100D01607 /* PhotoCollectionViewCell.swift in Sources */,
