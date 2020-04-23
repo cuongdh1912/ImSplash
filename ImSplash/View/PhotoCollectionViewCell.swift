@@ -57,9 +57,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         percentageLabel.isHidden = true
         imageView.isHidden = false
         // load image
-        if let imageData = Common.loadLocalImage(photo: photo) {
-            imageView.image = UIImage(data: imageData)
-        }        
+        updateUI(photo: photo)
     }
     
 }

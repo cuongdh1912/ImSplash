@@ -22,6 +22,7 @@ class PhotoViewController: UIViewController {
         super.viewDidLoad()
         // round corner of containerView
         containerView.layer.cornerRadius = 10
+        containerView.layer.masksToBounds = true
         // smaller container view
         changeContainerSize(width: view.frame.size.width * 2 / 3)
         self.containerView.alpha = 0.8
@@ -42,7 +43,7 @@ class PhotoViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let endWidth: CGFloat = view.frame.size.width
+        let endWidth: CGFloat = view.frame.size.width - 50
         // do animation
         UIView.animate(withDuration: 0.6, animations: {[weak self] in
             // maximize container's size
