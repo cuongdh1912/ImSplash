@@ -35,20 +35,16 @@ class HomeViewModel {
                 .subscribe({[unowned self] event in
                     switch event {
                     case .next(let list): // if success
-                        if let items = list { // if there are some photos
+                        if let items = list, items.count > 0 { // if there are some photos
                             self.photos += items
                             // increase page
                             self.currentPage += 1
-                            // update table view in main thread (UI)
-                            DispatchQueue.main.async { [weak self] in
-                              self?.networkRequestDelegate?.loadPhotosSuccess()
-                            }
                         } else { // no more photos
                             self.needLoadMore = false
-                            // update table view in main thread (UI)
-                            DispatchQueue.main.async { [weak self] in
-                              self?.networkRequestDelegate?.noMorePhotos()
-                            }
+                        }
+                        // update table view in main thread (UI)
+                        DispatchQueue.main.async { [weak self] in
+                          self?.networkRequestDelegate?.loadPhotosSuccess()
                         }
                     case .error(let error): // if failed
                         // show error alert in main thread
@@ -60,6 +56,16 @@ class HomeViewModel {
                     }
                 })
                 .disposed(by: self.disposeBag)
+        }
+    }
+    // get download photos
+    func getDownloadPhotos() -> [Photo]? {
+        return photos.filter { photo in
+            if let _ = photo.progress {
+                return true
+            } else {
+                return false
+            }
         }
     }
 }

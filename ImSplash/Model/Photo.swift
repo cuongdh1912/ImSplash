@@ -12,4 +12,5 @@ class Photo {
     var originUrl: String?
     // ratio of height per width of photo
     var ratioHeightPerWidth: Float?
+    var progress: Int?
 }

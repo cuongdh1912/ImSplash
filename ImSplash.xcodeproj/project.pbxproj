@@ -35,6 +35,8 @@
 		4E202A58244F674D007614DB /* NetworkRequestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E202A57244F674D007614DB /* NetworkRequestDelegate.swift */; };
 		4EA657A22450394600BFAB71 /* ActivityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA657A12450394600BFAB71 /* ActivityDelegate.swift */; };
 		4EA657A424504D1B00BFAB71 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA657A324504D1B00BFAB71 /* Router.swift */; };
+		4EA657A62450B02C00BFAB71 /* ProgressDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA657A52450B02C00BFAB71 /* ProgressDelegate.swift */; };
+		4EA657A82450B9FE00BFAB71 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA657A72450B9FE00BFAB71 /* PhotoViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +89,8 @@
 		4E202A57244F674D007614DB /* NetworkRequestDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestDelegate.swift; sourceTree = "<group>"; };
 		4EA657A12450394600BFAB71 /* ActivityDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDelegate.swift; sourceTree = "<group>"; };
 		4EA657A324504D1B00BFAB71 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		4EA657A52450B02C00BFAB71 /* ProgressDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDelegate.swift; sourceTree = "<group>"; };
+		4EA657A72450B9FE00BFAB71 /* PhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				4E202A54244F63B2007614DB /* HomeViewModel.swift */,
+				4EA657A72450B9FE00BFAB71 /* PhotoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -270,6 +275,7 @@
 				4E0DFBB824500F6100D01607 /* TwoColumnsLayoutDelegate.swift */,
 				4E0DFBBC24501F3500D01607 /* LoadMoreDelegate.swift */,
 				4EA657A12450394600BFAB71 /* ActivityDelegate.swift */,
+				4EA657A52450B02C00BFAB71 /* ProgressDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -418,6 +424,7 @@
 				4E0DFBB5244FFC2800D01607 /* TwoColumnsLayout.swift in Sources */,
 				4E202A46244EF72D007614DB /* PhotoDownloader.swift in Sources */,
 				4E202A05244ED84A007614DB /* HomeViewController.swift in Sources */,
+				4EA657A82450B9FE00BFAB71 /* PhotoViewModel.swift in Sources */,
 				4E202A01244ED849007614DB /* AppDelegate.swift in Sources */,
 				4E202A38244EDAD8007614DB /* Configuration.swift in Sources */,
 				4E202A03244ED84A007614DB /* SceneDelegate.swift in Sources */,
@@ -426,6 +433,7 @@
 				4EA657A424504D1B00BFAB71 /* Router.swift in Sources */,
 				4E0DFBB7245000F100D01607 /* PhotoCollectionViewCell.swift in Sources */,
 				4E202A55244F63B2007614DB /* HomeViewModel.swift in Sources */,
+				4EA657A62450B02C00BFAB71 /* ProgressDelegate.swift in Sources */,
 				4E202A3A244EDDA5007614DB /* NetworkRequest.swift in Sources */,
 				4E202A4D244F4B18007614DB /* Common.swift in Sources */,
 				4E202A58244F674D007614DB /* NetworkRequestDelegate.swift in Sources */,
@@ -538,7 +546,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -592,7 +600,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -615,7 +623,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Cuong.ImSplash;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -632,7 +640,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Cuong.ImSplash;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

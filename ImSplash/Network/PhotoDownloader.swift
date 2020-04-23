@@ -13,50 +13,55 @@ import RxSwift
 import RxCocoa
 import Foundation
 class PhotoDownloader {
+    // singleton instance to make sure there is a unique instance do all downloading process
+    static var shared = PhotoDownloader()
     let disposeBag = DisposeBag() // handle the life of rxswift
     // download a photo to local
     //
     // -Parameter photo: a model Photo which has url for download
-    // -Returns: progress in range 1...100 of downloading process
-    func downloadPhoto(_ photo: Photo) -> Observable<Int> {
+     func downloadPhoto(_ photo: Photo) {
         // check data of photo is nil or not
         guard let photoId = photo.photoId, let urlString = photo.originUrl,
             let urlRequest = urlString.toURLRequest() else {
             // when photo data is not sufficent
-            return Observable.create {observer in
-                let error = Common.createError("Cannot download! Photo has not id or original link")
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return
         }
         // destination place for path of downloading file
         let destination: DownloadRequest.Destination = { _, response in
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let fileURL = documentsURL.appendingPathComponent(photoId)                 
+            // photo id is file name
+            let fileURL = documentsURL.appendingPathComponent(photoId)
             return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
         }
-        let i: BehaviorRelay<Int> = BehaviorRelay<Int>.init(value: 2)        
-        return Observable.create {[unowned self] observer in
-            download(urlRequest, to: destination)
-                 .map{request in
-                     Observable<Int>.create{observer in
-                         request.downloadProgress(closure: { (progress) in
-                             observer.onNext(Int(progress.fractionCompleted * 100))
-                             print(Float(progress.fractionCompleted))
-                             if progress.isFinished{
-                                 print("completed")
-                                 observer.onCompleted()
-                             }
-                         })
-                         return Disposables.create()
-                     }
-                 }
-                .flatMap{$0}
-                .bind(to: i)
-                .disposed(by: self.disposeBag)
-            
-            return Disposables.create()
-        }
+        // start downloading
+        RxAlamofire.download(urlRequest, to: destination)
+        .subscribe(onNext: { element in
+            element.downloadProgress(closure: { progress in
+                let currentProgress = Int(progress.fractionCompleted * (Double)(Common.maxProgress))
+                let photoProgress = photo.progress ?? -1
+                if currentProgress != photoProgress {
+                    photo.progress = currentProgress
+                    if let currentVC = Router.getCurrentViewController() as? ProgressDelegate {
+                        DispatchQueue.main.async {
+                            currentVC.updateProgress(photo: photo)
+                        }
+                    }
+                }
+            })
+        }, onError: { error in
+            if let currentVC = Router.getCurrentViewController() as? ProgressDelegate {
+                photo.progress = Common.downloadFailedProgress
+                DispatchQueue.main.async {
+                    currentVC.downloadingFailed(photo: photo)
+                }
+            }
+        }, onCompleted: {
+            photo.progress = Common.maxProgress
+            if let currentVC = Router.getCurrentViewController() as? ProgressDelegate {
+                DispatchQueue.main.async {
+                    currentVC.updateProgress(photo: photo)
+                }
+            }
+        }).disposed(by: self.disposeBag)
     }
-    
 }

@@ -12,10 +12,28 @@ class Router {
     static func getViewControllerWithId(_ viewControllerId: String) -> UIViewController?{
         return UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: viewControllerId)
     }
-    static func showAlert(message: String?, parrent: UIViewController) {
+    static func showAlert(message: String?, parrent: UIViewController?) {
         // show error alert
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        parrent.present(alert, animated: true)
+        parrent?.present(alert, animated: true)
+    }
+    // get current(displaying) view controller
+    static func getCurrentViewController() ->UIViewController? {
+        // get window
+        var window: UIWindow? {
+            if #available(iOS 13, *) {
+                return UIApplication.shared.windows.first { $0.isKeyWindow }
+            } else {
+                return UIApplication.shared.keyWindow
+            }
+        }
+        // get root view controller
+        let rootVC = window?.rootViewController
+        if let vc = rootVC?.presentedViewController {
+            return vc
+        } else {
+            return rootVC
+        }
     }
 }

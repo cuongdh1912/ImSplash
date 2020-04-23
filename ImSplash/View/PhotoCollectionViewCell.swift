@@ -11,6 +11,7 @@ import Kingfisher
 class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var percentageLabel: UILabel!
     // awake from loading nib
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,4 +29,37 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             imageView?.image = UIImage(named: Common.placeHolder)
         }
     }
+    
+    func updateUIForDownload(photo: Photo?) {
+        // check url is whether correct or not
+        if let photo = photo, let progress = photo.progress {
+            switch progress {
+            case 0..<100:
+                showPercentage(string: String(progress) + "%")
+            case 100: // downloaded
+                // display image
+                showImage(photo)
+            case -1:
+                showPercentage(string: Common.downloadFailedText)
+            default: do {}
+                
+            }
+        } else { // if url is null
+            imageView?.image = UIImage(named: Common.placeHolder)
+        }
+    }
+    func showPercentage(string: String) {
+        percentageLabel.text = string
+        percentageLabel.isHidden = false
+        imageView.isHidden = true
+    }
+    func showImage(_ photo: Photo) {
+        percentageLabel.isHidden = true
+        imageView.isHidden = false
+        // load image
+        if let imageData = Common.loadLocalImage(photo: photo) {
+            imageView.image = UIImage(data: imageData)
+        }        
+    }
+    
 }

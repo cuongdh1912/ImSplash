@@ -23,9 +23,14 @@ class HomeViewController: UIViewController {
             twoColumnLayout.delegate = self
         }
     }
-    
+    // Show collection screen
     @IBAction func downloadButtonTouch(_ sender: Any) {
-        
+        // get collection view controller
+        if let vc = Router.getViewControllerWithId(Common.collectionStoryboardId) as? CollectionViewController {
+            // get downloaded/downloading photos
+            vc.downloadPhotos = homeViewModel?.getDownloadPhotos()
+            present(vc, animated: false, completion: nil)
+        }
     }
 }
 // MARK: --NetworkRequestDelegate
@@ -42,14 +47,12 @@ extension HomeViewController: NetworkRequestDelegate {
         refreshCollectionView()
     }
     
-    func noMorePhotos() {
-        // refresh collection view
-        loadPhotosSuccess()
-    }
     // if load Photos fails
     func loadPhotosFailed(error: NSError) {
-        activityDelegate?.hideActivityIndicator()
-        print("Network error!")
+        DispatchQueue.main.async { [weak self] in
+            self?.activityDelegate?.hideActivityIndicator()
+            Router.showAlert(message: error.localizedDescription, parrent: self)
+        }
     }
 }
 // MARK: --CollectionView Datasrouce
@@ -88,7 +91,6 @@ extension HomeViewController: UICollectionViewDataSource {
         }
         return UICollectionViewCell()
     }
-    
 }
 // MARK: --CollectionView Delegate
 extension HomeViewController: UICollectionViewDelegate {
@@ -113,5 +115,28 @@ extension HomeViewController: TwoColumnsLayoutDelegate {
 extension HomeViewController: LoadMoreDelegate {
     func loadMoreButtonTouch() {
         homeViewModel?.loadPhotos()
+    }
+}
+// MARK: --ProgressDelegate
+extension HomeViewController: ProgressDelegate {
+    func findPhotoInList(_ photo: Photo) -> Photo? {
+        // find photo in photos list
+        if let photos = homeViewModel?.photos {
+            if let downloadedPhoto = photos.first(where: { $0.photoId == photo.photoId}) {
+                return downloadedPhoto
+            }
+        }
+        return nil
+    }
+    // update progress status
+    func updateProgress(photo: Photo) {
+        // find photo in photos list
+        if let downloadedPhoto = findPhotoInList(photo) {
+            downloadedPhoto.progress = photo.progress
+        }
+    }
+    func downloadingFailed(photo: Photo) {
+        // hide download button, show progress view
+        updateProgress(photo: photo)
     }
 }

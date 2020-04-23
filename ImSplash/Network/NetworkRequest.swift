@@ -31,8 +31,6 @@ class NetworkRequest {
                     if let jsonPhotos = json as? [[String: Any]] { // data formation is correct
                         let photosList = JSONParsing.shared.createPhotosByJSONArray(jsonArray: jsonPhotos)
                         observer.onNext(photosList)
-                    } else if let _ = json as? String { // over limitation
-                        observer.onNext(nil)
                     } else { // error happens
                         let error = Common.createError(message)
                         observer.onError(error)

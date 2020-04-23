@@ -10,8 +10,6 @@ import Foundation
 protocol NetworkRequestDelegate: class {
     // call if query succeeds
     func loadPhotosSuccess()
-    // call if there is no more photos
-    func noMorePhotos()
     // call if query fails
     func loadPhotosFailed(error: NSError)
 }
